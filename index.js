@@ -30,7 +30,7 @@ const promptPassword = async (message) => {
 };
 
 // e.g. cli.addCommand(({url}) => {}, 'open <url>')
-const addCommand = ({action, pattern}) => {
+const addCommand = (pattern, action) => {
   const tokens = [];
   pattern.split(' ').forEach((token) => {
     tokens.push({
@@ -45,6 +45,10 @@ const addCommand = ({action, pattern}) => {
 // returns an object { args: {amount: 100, currency: 'yen'}}
 // returns null if no match
 const matchTokens = (inputTokens, commandTokens) => {
+  if (inputTokens.length !== commandTokens.length) {
+    return null;
+  }
+
   const intent = {args: {}};
   for (let i = 0; i < commandTokens.length; i++) { // for each token in command
     if (commandTokens[i].isArg) {
@@ -57,8 +61,8 @@ const matchTokens = (inputTokens, commandTokens) => {
 };
 
 const getIntent = (input) => {
-  // convert 'hello "John Doe"' ==> ['hello', 'John, Doe']
-  const inputTokens = input.match(/"([^"]+)"|\S+/g);
+  // convert 'hello "John Doe"' ==> ['hello', 'John, Doe'], if not already tokenized
+  const inputTokens = (input instanceof Array) ? input : input.match(/"([^"]+)"|\S+/g);
   for (let i = 0; i < inputTokens.length; i++) {
     inputTokens[i] = inputTokens[i].replace(/"/g, '');
   }
@@ -78,7 +82,15 @@ const show = (text) => {
   console.log(`${text}`);
 };
 
-const run = async () => {
+const run = async (args) => {
+  // initial command
+  if (args) {
+    const intent = getIntent(args);
+    if (intent) {
+      const output = await intent.action(intent.args);
+    }
+  }
+
   while (true) {
     const input = await prompt('>');
     if (input === '') {
