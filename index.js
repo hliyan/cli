@@ -7,6 +7,11 @@ const meta = {
   prefix: '>'
 };
 
+// session state
+const state = {
+
+};
+
 // map of command objects, by pattern string
 const commands = {};
 
@@ -14,6 +19,15 @@ const commands = {};
 // e.g. setPrompt('$');
 const setPrompt = (prompt) => {
   meta.prefix = prompt;
+};
+
+// set state
+const setState = (args) => {
+  Object.assign(state, args);
+};
+
+const getState = (key) => {
+  return state[key]; // WARNING: mutable
 };
 
 // reusable prompt; wraps inquirer
@@ -113,5 +127,7 @@ module.exports = {
   setPrompt,
   show,
   addCommand,
-  run
+  run,
+  setState,
+  getState
 };
