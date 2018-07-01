@@ -96,6 +96,8 @@ const show = (text) => {
   console.log(`${text}`);
 };
 
+addCommand('exit', exit);
+
 const run = async (args) => {
   // command mode
   if (args) {
