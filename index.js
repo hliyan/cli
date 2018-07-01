@@ -96,8 +96,6 @@ const show = (text) => {
   console.log(`${text}`);
 };
 
-addCommand('exit', exit);
-
 const run = async (args) => {
   // command mode
   if (args) {
@@ -128,6 +126,8 @@ const run = async (args) => {
 const exit = () => {
   process.exit(0);
 };
+
+addCommand('exit', exit);
 
 module.exports = {
   prompt,
