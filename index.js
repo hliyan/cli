@@ -127,7 +127,14 @@ const exit = () => {
   process.exit(0);
 };
 
+const help = async (args) => {
+  for (let command in commands) {
+    show(command);
+  }
+};
+
 addCommand('exit', exit);
+addCommand('help', help);
 
 module.exports = {
   prompt,
