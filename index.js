@@ -97,14 +97,16 @@ const show = (text) => {
 };
 
 const run = async (args) => {
-  // initial command
+  // command mode
   if (args) {
     const intent = getIntent(args);
     if (intent) {
       const output = await intent.action(intent.args);
+      exit();
     }
   }
 
+  // repl mode
   while (true) {
     const input = await prompt('>');
     if (input === '') {
@@ -121,6 +123,10 @@ const run = async (args) => {
   }
 };
 
+const exit = () => {
+  process.exit(0);
+};
+
 module.exports = {
   prompt,
   promptPassword,
@@ -129,5 +135,6 @@ module.exports = {
   addCommand,
   run,
   setState,
-  getState
+  getState,
+  exit
 };
