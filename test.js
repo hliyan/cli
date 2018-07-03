@@ -7,6 +7,10 @@ const login = async (args) => {
   const password = await cli.promptPassword('password:');
 };
 
+const promptWithDefaults = async (args) => {
+  const lang = await cli.prompt('Language: ', {default:'English'});
+};
+
 const exit = async () => {
   process.exit(0);
 };
@@ -22,5 +26,7 @@ cli.addCommand('exit', exit);
 cli.addCommand('login', login);
 cli.addCommand('note', createNote);
 cli.addCommand('note for <user>', createNote);
+cli.addCommand('lang', promptWithDefaults);
 
 cli.run('login');
+//cli.run('lang');
