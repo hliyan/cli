@@ -8,7 +8,6 @@ const login = async (args) => {
   const password = await cli.promptPassword('password:');
 };
 
-
 const exit = async () => {
   process.exit(0);
 };
