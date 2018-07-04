@@ -3,6 +3,7 @@
 const cli = require('./index');
 
 const login = async (args) => {
+  const account = await cli.prompt('Account: ', {default:'Google'});
   const username = await cli.prompt('username:');
   const password = await cli.promptPassword('password:');
 };
