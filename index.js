@@ -30,24 +30,21 @@ const getState = (key) => {
   return state[key]; // WARNING: mutable
 };
 
-const _prompt = async (prompt, customConf, message) => {
-  const promptObj = {
-    ...prompt,
-    ...customConf
-  };
-  const answer = await inquirer.prompt([{ ...promptObj, prefix: meta.prefix, message }]);
-  return answer.value;
-};
-
 // reusable prompt; wraps inquirer
 // e.g. const name = await prompot('What is your name?');
-const prompt = async (message, customConf = {}) => {
-  return await _prompt(meta.prompt, customConf, message);
+const prompt = async (message, options) => {
+  const promptOptions = {
+    ...meta.prompt,
+    ...options
+  };
+  const answer = await inquirer.prompt([{ ...promptOptions, prefix: meta.prefix, message }]);
+  return answer.value;
 };
 
 // reusable password prompt; wraps inquirer
 const promptPassword = async (message) => {
-  return await _prompt(meta.promptPassword, message);
+  const answer = await inquirer.prompt([{ ...meta.promptPassword, prefix: meta.prefix, message }]);
+  return answer.value;
 };
 
 // e.g. cli.addCommand(({url}) => {}, 'open <url>')
