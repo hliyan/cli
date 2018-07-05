@@ -4,6 +4,7 @@ var inquirer = require('inquirer');
 const meta = {
   prompt: { type: 'input', name: 'value' },
   promptPassword: { type: 'password', name: 'value' },
+  confirm: { type: 'confirm', name: 'value' },
   prefix: '>'
 };
 
@@ -31,7 +32,7 @@ const getState = (key) => {
 };
 
 // reusable prompt; wraps inquirer
-// e.g. const name = await prompot('What is your name?');
+// e.g. const name = await prompt('What is your name?');
 const prompt = async (message, options={}) => {
   const answer = await inquirer.prompt([{ ...{...meta.prompt,...options}, prefix: meta.prefix, message }]);
   return answer.value;
@@ -40,6 +41,15 @@ const prompt = async (message, options={}) => {
 // reusable password prompt; wraps inquirer
 const promptPassword = async (message) => {
   const answer = await inquirer.prompt([{ ...meta.promptPassword, prefix: meta.prefix, message }]);
+  return answer.value;
+};
+
+// reusable confirmation prompt. wraps inquirer.
+// e.g. const proceed = await confirm('You want to proceed?');
+// e.g. const proceed = await confirm('You want to proceed?', {default: false});
+// returns boolean
+const confirm = async (message, options) => {
+  const answer = await inquirer.prompt([{ ...{...meta.confirm, ...options}, prefix: meta.prefix, message }]);
   return answer.value;
 };
 
@@ -139,6 +149,7 @@ addCommand('help', help);
 module.exports = {
   prompt,
   promptPassword,
+  confirm,
   setPrompt,
   show,
   addCommand,
