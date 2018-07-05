@@ -48,7 +48,7 @@ const promptPassword = async (message) => {
 // e.g. const proceed = await confirm('You want to proceed?');
 // e.g. const proceed = await confirm('You want to proceed?', {default: false});
 // returns boolean
-const confirm = async (message, options) => {
+const confirm = async (message, options={}) => {
   const answer = await inquirer.prompt([{ ...{...meta.confirm, ...options}, prefix: meta.prefix, message }]);
   return answer.value;
 };
