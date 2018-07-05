@@ -33,11 +33,7 @@ const getState = (key) => {
 // reusable prompt; wraps inquirer
 // e.g. const name = await prompot('What is your name?');
 const prompt = async (message, options={}) => {
-  const promptOptions = {
-    ...meta.prompt,
-    ...options
-  };
-  const answer = await inquirer.prompt([{ ...promptOptions, prefix: meta.prefix, message }]);
+  const answer = await inquirer.prompt([{ ...{...meta.prompt,...options}, prefix: meta.prefix, message }]);
   return answer.value;
 };
 
