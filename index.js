@@ -34,7 +34,7 @@ const getState = (key) => {
 // reusable prompt; wraps inquirer
 // e.g. const name = await prompt('What is your name?');
 const prompt = async (message, options={}) => {
-  const answer = await inquirer.prompt([{ ...{...meta.prompt,...options}, prefix: meta.prefix, message }]);
+  const answer = await inquirer.prompt([{ ...meta.prompt, ...options, prefix: meta.prefix, message }]);
   return answer.value;
 };
 
@@ -49,7 +49,7 @@ const promptPassword = async (message) => {
 // e.g. const proceed = await confirm('You want to proceed?', {default: false});
 // returns boolean
 const confirm = async (message, options={}) => {
-  const answer = await inquirer.prompt([{ ...{...meta.confirm, ...options}, prefix: meta.prefix, message }]);
+  const answer = await inquirer.prompt([{ ...meta.confirm, ...options, prefix: meta.prefix, message }]);
   return answer.value;
 };
 
